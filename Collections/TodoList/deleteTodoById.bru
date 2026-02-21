@@ -1,0 +1,26 @@
+meta {
+  name: deleteTodoById
+  type: http
+  seq: 7
+}
+
+delete {
+  url: http://localhost:5074/api/todo/1
+  body: none
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "new Todo",
+    "description": "this todo for test created",
+    "isComplete" : false,
+    "priority": 0,
+    "dueDate": "2026-02-21T05:54:32.688429Z"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

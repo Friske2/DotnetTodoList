@@ -1,0 +1,27 @@
+meta {
+  name: UpdateTodo
+  type: http
+  seq: 6
+}
+
+put {
+  url: http://localhost:5074/api/todo
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": 1,
+    "title": "new Todo",
+    "description": "this todo for test created",
+    "isComplete" : true,
+    "priority": 1,
+    "dueDate": "2026-02-21T05:54:32.688429Z"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
