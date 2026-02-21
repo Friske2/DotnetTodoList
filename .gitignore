@@ -1,0 +1,84 @@
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio cache/options
+.vs/
+
+# Visual Studio user-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.DotSettings.user
+
+# Rider
+.idea/
+*.sln.iml
+.rider/
+
+# Test Results
+TestResults/
+*.trx
+*.coverage
+
+# NuGet
+*.nupkg
+*.nuspec
+*.snupkg
+packages/
+.nuget/
+
+# Local environment variables
+.env
+.env.local
+*.local
+
+# Application settings (local overrides)
+appsettings.local.json
+appsettings.*.local.json
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# ReSharper
+.ReSharper
+.ReSharper/
+.ReSharper.user
+*.DotSettings.user
+reSharper*.xml
+
+# BeatPulse healthcheck temp database
+healthchecksdb
+
+# Backup & temp files
+*.bak
+*.tmp
+*~
+*.swp
+*.swo
+
+# Generated files
+*.generated.cs
+
+./Todolist/bin/
+./Todolist/bin/Debug/
