@@ -17,6 +17,9 @@
     <ItemGroup>
         <Using Include="Xunit" Version="2.9.3"/>
         <ProjectReference Include="..\Todolist\Todolist.csproj"/>
+        <None Update="appsettings.test.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>
