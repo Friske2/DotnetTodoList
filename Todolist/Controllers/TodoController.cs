@@ -1,6 +1,6 @@
-using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Todolist.Dto;
+using Todolist.Exceptions;
 using Todolist.Services;
 
 namespace Todolist.Controllers;
@@ -14,98 +14,55 @@ public class TodoController : ControllerBase
     {
         _todoService = todoService;
     }
-    
+
     [HttpGet("getDateTime")]
     public ActionResult GetDateTime()
     {
-        // new utc date in c# 
         DateTime now = DateTime.UtcNow;
-        Dictionary<String, DateTime> result = new Dictionary<String, DateTime>();
-        result.Add("now", now);
-        return Ok(result);
+        return Ok(new Dictionary<string, DateTime> { { "now", now } });
     }
 
     [HttpGet()]
-    public ActionResult<IEnumerable<GetTodoResponse>> Get()
+    public async Task<ActionResult<IEnumerable<GetTodoResponse>>> Get()
     {
-        // call service to get all todos
-        var todos = _todoService.GetAllAsync().Result;
+        var todos = await _todoService.GetAllAsync();
         return Ok(todos);
     }
-    
+
     [HttpGet("{id}")]
-    public ActionResult<GetTodoResponse> GetById(int id)
+    public async Task<ActionResult<GetTodoResponse>> GetById(int id)
     {
-        // call service to get todo by id
-        var todo = _todoService.GetByIdAsync(id).Result;
+        var todo = await _todoService.GetByIdAsync(id);
         if (todo == null)
-        {
-            var err = new Error()
-            {
-                StatusCode = 404,
-                Message = "Todo not found",
-                Details = "No todo found with the given id",
-                Timestamp = DateTime.UtcNow
-            };
-            return NotFound(err);
-        }
+            throw new NotFoundException("Todo not found", $"No todo found with id: {id}");
         return Ok(todo);
     }
 
     [HttpPost()]
-    public ActionResult<TodoResponse> CreateNewTodo(CreateTodoRequest request)
+    public async Task<ActionResult<TodoResponse>> CreateNewTodo(CreateTodoRequest request)
     {
-        // call service to create new todo
-        var response = _todoService.CreateAsync(request).Result;
+        var response = await _todoService.CreateAsync(request);
         if (response.Id.Equals(0))
-        {
-            var err = new Error()
-            {
-                StatusCode = 400,
-                Message = "Failed to create todo",
-                Details = "An error occurred while creating the todo",
-                Timestamp = DateTime.UtcNow
-            };
-            return BadRequest(err);
-        }   
+            throw new BadRequestException("Failed to create todo", "An error occurred while creating the todo");
         return Ok(response);
     }
-    
+
     [HttpPut()]
-    public ActionResult UpdateTodo(UpdateTodoRequest request)
+    public async Task<ActionResult<TodoResponse>> UpdateTodo(UpdateTodoRequest request)
     {
-        // call service to update todo
-        var response = _todoService.UpdateAsync(request).Result;
+        var response = await _todoService.UpdateAsync(request);
         if (response.Id.Equals(0))
-        {
-            var err = new Error()
-            {
-                StatusCode = 400,
-                Message = "Failed to update todo",
-                Details = "An error occurred while updating the todo",
-                Timestamp = DateTime.UtcNow
-            };
-            return BadRequest(err);
-        }
+            throw new BadRequestException("Failed to update todo", "An error occurred while updating the todo");
         return Ok(response);
     }
 
     [HttpDelete("{id}")]
-    public ActionResult DeleteTodo(int id)
+    public async Task<ActionResult<TodoResponse>> DeleteTodo(int id)
     {
-        // call service to delete todo
-        var response = _todoService.DeleteAsync(id).Result;
+        var response = await _todoService.DeleteAsync(id);
         if (response.Id.Equals(0))
-        {
-            var err = new Error()
-            {
-                StatusCode = 400,
-                Message = "Failed to delete todo",
-                Details = "An error occurred while deleting the todo",
-                Timestamp = DateTime.UtcNow
-            };
-            return BadRequest(err);
-        }
+            throw new NotFoundException("Todo not found", $"No todo found with id: {id}");
         return Ok(response);
     }
 }
+

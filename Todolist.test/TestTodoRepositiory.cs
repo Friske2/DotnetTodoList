@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Todolist.Repository;
 using Todolist.test.Mocks;
 using Xunit.Abstractions;
-
+using Todolist.Models;
 namespace Todolist.test;
 
 public abstract class TestTodoRepository
@@ -52,12 +52,12 @@ public abstract class TestTodoRepository
     public async Task TestCreateAsync()
     {
         // assert
-        var newTodo = new Models.Todo
+        var newTodo = new Todo
         {
             Title = "Test Todo",
             Description = "This is a test todo",
             IsCompleted = false,
-            Priority = 1,
+            Priority = Priority.Low,
             DueDate = DateTime.UtcNow.AddDays(7),
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow

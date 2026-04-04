@@ -1,3 +1,4 @@
+using Todolist.Middleware;
 using Todolist.Repository;
 using Todolist.Services;
 
@@ -23,6 +24,9 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<ITodoService, TodoService>();
 builder.Services.AddScoped<ITodoRepository, TodoRepo>();
 var app = builder.Build();
+
+// Global exception handling (must be first in pipeline)
+app.UseExceptionHandling();
 
 // using CORS 
 app.UseCors("CorsPolicy");

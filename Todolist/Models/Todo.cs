@@ -17,7 +17,7 @@ public class Todo
 
     public bool IsCompleted { get; set; } = false;
 
-    public int Priority { get; set; } = 0;
+    public Priority Priority { get; set; } = Priority.Low;
 
     public DateTime DueDate { get; set; } = DateTime.UtcNow;
 
@@ -34,7 +34,7 @@ public class Todo
 
 public enum Priority
 {
-    Low = 1,
+    Low = 1, 
     Medium = 2,
     High = 3
 }

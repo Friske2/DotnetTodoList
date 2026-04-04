@@ -12,7 +12,7 @@ public class TodoTestHelper
             Title = title,
             Description = "This is a test todo",
             IsCompleted = false,
-            Priority = 1,
+            Priority = Models.Priority.Low,
             DueDate = DateTime.UtcNow.AddDays(7),
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow

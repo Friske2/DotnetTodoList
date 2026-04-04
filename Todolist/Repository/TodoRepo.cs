@@ -1,4 +1,5 @@
 using Todolist.Data;
+using Todolist.Exceptions;
 using Todolist.Models;
 
 namespace Todolist.Repository;
@@ -14,6 +15,8 @@ public class TodoRepo : ITodoRepository
     {
         var sql = @"select id, title, description, iscompleted, priority, duedate, createdat, updatedat, deletedat from todo";
         var result = _dbContext.Query<Todo>(sql);
+        // throw exception is not connected to database
+        
         return Task.FromResult(result);
     }
 
@@ -47,7 +50,13 @@ public class TodoRepo : ITodoRepository
                 updatedat = @UpdatedAt
             WHERE id = @Id
         ";
+        
         var success = _dbContext.Execute(sql, todo);
+        // check row affected, if 0 means update failed (not found), if > 0 means success
+        if(success == false)
+        {
+            throw new NotFoundException("Todo not found", $"No todo found with id: {todo.Id}");
+        }
         return Task.FromResult(success);
     }
 
