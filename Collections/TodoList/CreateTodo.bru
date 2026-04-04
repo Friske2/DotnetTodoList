@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: http://localhost:5074/api/todo
+  url: {{baseUrl}}/api/todo
   body: json
   auth: inherit
 }
@@ -14,7 +14,7 @@ body:json {
   {
     "title": "new Todo",
     "description": "this todo for test created",
-    "isComplete" : false,
+    "isComplete" : "xxxxxx",
     "priority": 0,
     "dueDate": "2026-02-21T05:54:32.688429Z"
   }
